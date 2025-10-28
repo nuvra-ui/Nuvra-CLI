@@ -2,6 +2,7 @@
 
 import hello from "../src/commands/hello.js"
 import addComponent from "../src/commands/addComponent.js"
+import chalk from 'chalk'
 
 const subCommand = process.argv[2]
 
@@ -10,5 +11,5 @@ switch(subCommand) {
         addComponent()
         break
     default:
-        console.log("No valid subcommand found.")                    
+        console.log(chalk.red("No valid subcommand found."))                    
 }
