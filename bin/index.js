@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-console.log("Hello World!")
+import hello from "../src/commands/hello.js"
+
+hello()
