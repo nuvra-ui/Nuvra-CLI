@@ -1,24 +1,11 @@
-import hello from "./commands/hello";
-import addComponent from "./commands/addComponent";
 import { Command } from "commander";
+import { hello } from "./commands/hello";
 
-const program = new Command();
+const program = new Command()
+  .name("nuvra-cli")
+  .description("Nuvra-UI Command Line Interface")
+  .version("0.1.0", "-v, --version", "output the current version");
 
-const subCommand = process.argv[2];
+program.addCommand(hello);
 
-program
-  .version("0.1.0")
-  .description("Nuvra-UI CLI")
-  .option("--add", "Add a component from Nuvra-UI to your project")
-  .option("--hello", "Display a hello message from Nuvra-UI");
-
-switch (subCommand) {
-  case "add":
-    addComponent();
-    break;
-  case "hello":
-    hello();
-    break;
-  default:
-    console.log("No valid subcommand found.");
-}
+program.parse();
