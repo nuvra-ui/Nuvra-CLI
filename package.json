@@ -1,11 +1,14 @@
 {
   "name": "nuvra-cli",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "The command line interface for Nuvra-UI",
   "license": "MIT",
-  "author": "",
+  "author": "Nuvra-UI",
   "type": "module",
   "main": "bin/index.js",
+  "bin": {
+    "nuvra-ui": "bin/index.js"
+  },
   "scripts": {},
   "dependencies": {
     "@nuvra-ui/nuvra-ui": "^0.1.2",
