@@ -6,5 +6,9 @@
   "author": "",
   "type": "module",
   "main": "bin/index.js",
-  "scripts": {}
+  "scripts": {},
+  "dependencies": {
+    "@nuvra-ui/nuvra-ui": "^0.1.2",
+    "chalk": "^5.6.2"
+  }
 }
