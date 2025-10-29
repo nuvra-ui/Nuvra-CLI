@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import hello from "./commands/hello.js";
-import addComponent from "./commands/addComponent.js";
+import hello from "./commands/hello";
+import addComponent from "./commands/addComponent";
 import chalk from "chalk";
 
 const subCommand = process.argv[2];

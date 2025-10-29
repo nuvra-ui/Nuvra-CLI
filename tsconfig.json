@@ -7,13 +7,12 @@
     "types": ["node"],
     "skipLibCheck": true,
     "jsx": "react-jsx",
+    "outDir": "dist",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
 
     /* Linting */
     "strict": true,
