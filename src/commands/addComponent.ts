@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
@@ -8,28 +7,24 @@ export default function addComponent() {
   const sourceDir = `${rootDir}/node_modules/@nuvra-ui/nuvra-ui/src/components/${positionalArgument}/${positionalArgument}.tsx`;
   const destDir = `${rootDir}/src/ui/${positionalArgument}`;
 
-  console.log(chalk.yellow(`Searching for ${positionalArgument}-Component...`));
+  console.log(`Searching for ${positionalArgument}-Component...`);
 
   fs.access(sourceDir, fs.constants.F_OK, (err) => {
     if (err) {
-      console.log(
-        chalk.red(`Component ${positionalArgument} does not exist in Nuvra-UI`)
-      );
+      console.log(`Component ${positionalArgument} does not exist in Nuvra-UI`);
       process.exit();
     }
-    console.log(chalk.green(`Component ${positionalArgument} found!`));
+    console.log(`Component ${positionalArgument} found!`);
   });
 
   fs.mkdir(destDir, { recursive: true }, (err) => {
     if (err) throw err;
-    console.log(chalk.green("Created Folder successfully!"));
+    console.log("Created Folder successfully!");
 
     fs.copyFile(sourceDir, `${destDir}/${positionalArgument}.tsx`, (err) => {
       if (err) throw err;
       console.log(
-        chalk.green(
-          `Added ${positionalArgument}-Component to ${destDir} successfully!`
-        )
+        `Added ${positionalArgument}-Component to ${destDir} successfully!`
       );
       process.exit();
     });

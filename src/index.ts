@@ -1,10 +1,16 @@
-#!/usr/bin/env node
-
 import hello from "./commands/hello";
 import addComponent from "./commands/addComponent";
-import chalk from "chalk";
+import { Command } from "commander";
+
+const program = new Command();
 
 const subCommand = process.argv[2];
+
+program
+  .version("0.1.0")
+  .description("Nuvra-UI CLI")
+  .option("--add", "Add a component from Nuvra-UI to your project")
+  .option("--hello", "Display a hello message from Nuvra-UI");
 
 switch (subCommand) {
   case "add":
@@ -14,5 +20,5 @@ switch (subCommand) {
     hello();
     break;
   default:
-    console.log(chalk.red("No valid subcommand found."));
+    console.log("No valid subcommand found.");
 }
