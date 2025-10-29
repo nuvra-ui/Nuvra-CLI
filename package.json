@@ -6,12 +6,22 @@
   "author": "Nuvra-UI",
   "type": "module",
   "main": "bin/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "bin": {
     "nuvra-ui": "bin/index.js"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@nuvra-ui/nuvra-ui": "^0.1.2",
     "chalk": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.3"
   }
 }
