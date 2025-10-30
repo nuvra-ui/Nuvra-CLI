@@ -3,16 +3,17 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "skipLibCheck": true,
-    "jsx": "react-jsx",
+    "noEmitOnError": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist",
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    "noEmit": true,
 
     /* Linting */
     "strict": true,
@@ -22,6 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"]
 }

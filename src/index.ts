@@ -1,18 +1,12 @@
-#!/usr/bin/env node
+import { Command } from "commander";
+import { hello } from "./commands/hello";
+import { add } from "./commands/add";
 
-import hello from "./commands/hello";
-import addComponent from "./commands/addComponent";
-import chalk from "chalk";
+const program = new Command()
+  .name("nuvra-cli")
+  .description("Nuvra-UI Command Line Interface")
+  .version("0.1.0", "-v, --version", "output the current version");
 
-const subCommand = process.argv[2];
+program.addCommand(hello).addCommand(add);
 
-switch (subCommand) {
-  case "add":
-    addComponent();
-    break;
-  case "hello":
-    hello();
-    break;
-  default:
-    console.log(chalk.red("No valid subcommand found."));
-}
+program.parse();
