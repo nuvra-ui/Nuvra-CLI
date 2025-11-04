@@ -4,9 +4,9 @@ const componentSchema = z.object({
   name: z.string(),
   description: z.string(),
   author: z.string(),
-  version: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  category: z.string().optional(),
+  version: z.string(),
+  tags: z.array(z.string()),
+  category: z.string(),
 });
 
 export { componentSchema };

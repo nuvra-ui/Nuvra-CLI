@@ -23,8 +23,11 @@ async function buildRegistryComponent(file: string) {
 
   const componentData = {
     name: path.parse(file).name,
-    author: "Test",
-    description: "A test component",
+    description: "",
+    author: "",
+    version: "",
+    tags: [],
+    category: "",
   };
 
   fs.writeFileSync(
