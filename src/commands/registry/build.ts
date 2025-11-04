@@ -1,19 +1,34 @@
 import { Command } from "commander";
 import fs from "fs";
+import path from "path";
+import { componentSchema } from "../../schema/schema";
 
 export const build = new Command()
   .name("build")
   .description("Convert a component file into a JSON file for the registry")
   .argument("[file]", "path to the component file to build")
-  .action(async () => {
-    await buildRegistryComponent();
+  .action(async (file: string) => {
+    await buildRegistryComponent(file);
   });
 
-async function buildRegistryComponent() {
-  if (!fs.existsSync("./registry")) {
-    console.log("Creating registry folder...");
-    fs.mkdirSync("./registry", { recursive: true });
-  } else {
-    console.log("Registry folder already exists.");
+async function buildRegistryComponent(file: string) {
+  //Check Registry Folder
+  if (!fs.existsSync("./registry/")) {
+    fs.mkdirSync("./registry/"), { recursive: true }; //Create Registry Folder
   }
+  //Check Component Folder
+  if (!fs.existsSync("./registry/" + path.parse(file).name)) {
+    fs.mkdirSync("./registry/" + path.parse(file).name), { recursive: true }; //Create Component Folder
+  }
+
+  const componentData = {
+    name: path.parse(file).name,
+    author: "Test",
+    description: "A test component",
+  };
+
+  fs.writeFileSync(
+    `./registry/${path.parse(file).name}/${path.parse(file).name}.json`,
+    JSON.stringify(componentSchema.parse(componentData), null, 2)
+  );
 }
