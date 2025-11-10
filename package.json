@@ -10,7 +10,7 @@
     "src"
   ],
   "bin": {
-    "nuvra-ui": "bin/index.js"
+    "nuvra-ui": "dist/index.js"
   },
   "scripts": {
     "build": "rollup -c"
