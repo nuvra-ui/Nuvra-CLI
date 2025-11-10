@@ -21,6 +21,9 @@ jobs:
       - name: Build Package
         run: npm run build
 
+      - name: Make CLI executable
+        run: chmod +x dist/index.js
+
       - name: Publish to NPM
         run: npm publish --access public
         env:
