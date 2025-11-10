@@ -12,15 +12,6 @@ export const build = new Command()
   });
 
 async function buildRegistryComponent(file: string) {
-  //Check Registry Folder
-  if (!fs.existsSync("./registry/")) {
-    fs.mkdirSync("./registry/", { recursive: true }); //Create Registry Folder
-  }
-  //Check Component Folder
-  if (!fs.existsSync("./registry/" + path.parse(file).name)) {
-    fs.mkdirSync("./registry/" + path.parse(file).name, { recursive: true }); //Create Component Folder
-  }
-
   const componentData = {
     name: path.parse(file).name,
     description: "",
@@ -30,13 +21,16 @@ async function buildRegistryComponent(file: string) {
     category: "",
     files: [
       {
-        path: `ui/${path.parse(file).name}/${path.basename(file)}`,
+        path: file,
       },
     ],
   };
 
   fs.writeFileSync(
-    `./registry/${path.parse(file).name}/metadata.json`,
+    `${path.dirname(file)}/metadata.json`,
     JSON.stringify(componentSchema.parse(componentData), null, 2)
+  );
+  console.log(
+    `metadata.json created successfully at ${path.dirname(file)}/metadata.json`
   );
 }
