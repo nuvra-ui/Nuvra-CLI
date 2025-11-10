@@ -7,6 +7,11 @@ const componentSchema = z.object({
   version: z.string(),
   tags: z.array(z.string()),
   category: z.string(),
+  files: z.array(
+    z.object({
+      path: z.string(),
+    })
+  ),
 });
 
 export { componentSchema };

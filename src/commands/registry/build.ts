@@ -14,11 +14,11 @@ export const build = new Command()
 async function buildRegistryComponent(file: string) {
   //Check Registry Folder
   if (!fs.existsSync("./registry/")) {
-    fs.mkdirSync("./registry/"), { recursive: true }; //Create Registry Folder
+    fs.mkdirSync("./registry/", { recursive: true }); //Create Registry Folder
   }
   //Check Component Folder
   if (!fs.existsSync("./registry/" + path.parse(file).name)) {
-    fs.mkdirSync("./registry/" + path.parse(file).name), { recursive: true }; //Create Component Folder
+    fs.mkdirSync("./registry/" + path.parse(file).name, { recursive: true }); //Create Component Folder
   }
 
   const componentData = {
@@ -28,10 +28,15 @@ async function buildRegistryComponent(file: string) {
     version: "",
     tags: [],
     category: "",
+    files: [
+      {
+        path: `ui/${path.parse(file).name}/${path.basename(file)}`,
+      },
+    ],
   };
 
   fs.writeFileSync(
-    `./registry/${path.parse(file).name}/${path.parse(file).name}.json`,
+    `./registry/${path.parse(file).name}/metadata.json`,
     JSON.stringify(componentSchema.parse(componentData), null, 2)
   );
 }
