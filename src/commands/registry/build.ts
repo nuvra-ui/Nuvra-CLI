@@ -27,14 +27,13 @@ async function buildRegistryComponent(file: string) {
     ],
   };
 
+  // Write component metadata.json
   fs.writeFileSync(
     `${path.dirname(file)}/metadata.json`,
     JSON.stringify(componentSchema.parse(componentData), null, 2)
   );
-  console.log(
-    `metadata.json created successfully at ${path.dirname(file)}/metadata.json`
-  );
 
+  // update/create registry.json
   let registryData = {};
 
   if (fs.existsSync("src/registry.json")) {
@@ -47,6 +46,7 @@ async function buildRegistryComponent(file: string) {
 
   registryData = { ...registryData, ...updatedRegistry };
 
+  //write registry.json
   fs.writeFileSync(
     `src/registry.json`,
     JSON.stringify(registrySchema.parse(registryData), null, 2)
