@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import fs from "fs";
 import path from "path";
-import { componentSchema } from "../../schema/schema";
+import { componentSchema } from "../../schema/componentSchema";
 
 export const build = new Command()
   .name("build")
