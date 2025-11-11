@@ -41,7 +41,10 @@ async function buildRegistryComponent(file: string) {
   }
 
   const updatedRegistry = {
-    [path.parse(file).name]: { Path: file },
+    [path.parse(file).name]: {
+      Path:
+        "src/" + path.relative("src", path.dirname(file)).replace(/\\/g, "/"),
+    },
   };
 
   registryData = { ...registryData, ...updatedRegistry };
