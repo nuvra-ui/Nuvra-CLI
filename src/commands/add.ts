@@ -1,5 +1,6 @@
 import { Command } from "commander";
-import { readFileSync, copyFileSync, existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import axios from "axios";
 
 export const add = new Command()
   .name("add")
@@ -10,18 +11,47 @@ export const add = new Command()
   });
 
 async function addComponent(component: string) {
-  const registry = JSON.parse(readFileSync("src/registry.json", "utf-8"));
+  async function getRegistry() {
+    try {
+      const response = await axios.get(
+        "https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/src/registry.json"
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const registry = await getRegistry();
 
   if (registry[component]) {
-    const metaData = JSON.parse(
-      readFileSync(`${registry[component].Path}/metadata.json`, "utf-8")
-    );
+    async function getMetadata() {
+      try {
+        const response = await axios.get(
+          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${registry[component].Path}/metadata.json`
+        );
+        return response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const metaData = await getMetadata();
 
-    const componentPath = metaData.files[0].path;
+    async function getComponentFile() {
+      try {
+        const response = await axios.get(
+          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${metaData.files[0].path}`
+        );
+        return response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const componentFile = await getComponentFile();
+
     if (!existsSync(`src/ui/`)) {
       mkdirSync(`src/ui/`);
     }
-    copyFileSync(componentPath, `src/ui/` + metaData.name + `.tsx`);
+    writeFileSync(`src/ui/` + metaData.name + `.tsx`, componentFile);
   } else {
     console.log(`Component "${component}" not found in registry.`);
   }
