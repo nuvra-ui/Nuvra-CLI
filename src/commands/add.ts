@@ -1,38 +1,28 @@
 import { Command } from "commander";
-import fs from "fs";
-import path from "path";
+import { readFileSync, copyFileSync, existsSync, mkdirSync } from "fs";
 
 export const add = new Command()
   .name("add")
-  .description("Add a component from Nuvra-UI to your project")
-  .action(async () => {
-    const positionalArgument = process.argv[3]; //e.g npx @nuvra-ui/nuvra-ui add <positionalArgument>
-    const rootDir = path.resolve(); // e.g /home/joe/my-project
-    const sourceDir = `${rootDir}/node_modules/@nuvra-ui/nuvra-ui/src/components/${positionalArgument}/${positionalArgument}.tsx`;
-    const destDir = `${rootDir}/src/ui/${positionalArgument}`;
-
-    console.log(`Searching for ${positionalArgument}-Component...`);
-
-    fs.access(sourceDir, fs.constants.F_OK, (err) => {
-      if (err) {
-        console.log(
-          `Component ${positionalArgument} does not exist in Nuvra-UI`
-        );
-        process.exit();
-      }
-      console.log(`Component ${positionalArgument} found!`);
-    });
-
-    fs.mkdir(destDir, { recursive: true }, (err) => {
-      if (err) throw err;
-      console.log("Created Folder successfully!");
-
-      fs.copyFile(sourceDir, `${destDir}/${positionalArgument}.tsx`, (err) => {
-        if (err) throw err;
-        console.log(
-          `Added ${positionalArgument}-Component to ${destDir} successfully!`
-        );
-        process.exit();
-      });
-    });
+  .description("Add a component to your project")
+  .argument("[component]", "name of the component to add")
+  .action(async (component: string) => {
+    await addComponent(component);
   });
+
+async function addComponent(component: string) {
+  const registry = JSON.parse(readFileSync("src/registry.json", "utf-8"));
+
+  if (registry[component]) {
+    const metaData = JSON.parse(
+      readFileSync(`${registry[component].Path}/metadata.json`, "utf-8")
+    );
+
+    const componentPath = metaData.files[0].path;
+    if (!existsSync(`src/ui/`)) {
+      mkdirSync(`src/ui/`);
+    }
+    copyFileSync(componentPath, `src/ui/` + metaData.name + `.tsx`);
+  } else {
+    console.log(`Component "${component}" not found in registry.`);
+  }
+}
