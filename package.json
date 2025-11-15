@@ -16,6 +16,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "axios": "^1.13.2",
     "commander": "^14.0.2",
     "figlet": "^1.9.3",
     "zod": "^4.1.12"
