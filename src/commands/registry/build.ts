@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import fs from "fs";
 import path from "path";
-import { componentSchema } from "../../schema/schema";
+import { componentSchema } from "../../schema/componentSchema";
+import { registrySchema } from "../../schema/registrySchema";
 
 export const build = new Command()
   .name("build")
@@ -26,11 +27,31 @@ async function buildRegistryComponent(file: string) {
     ],
   };
 
+  // Write component metadata.json
   fs.writeFileSync(
     `${path.dirname(file)}/metadata.json`,
     JSON.stringify(componentSchema.parse(componentData), null, 2)
   );
-  console.log(
-    `metadata.json created successfully at ${path.dirname(file)}/metadata.json`
+
+  // update/create registry.json
+  let registryData = {};
+
+  if (fs.existsSync("src/registry.json")) {
+    registryData = JSON.parse(fs.readFileSync("src/registry.json", "utf-8"));
+  }
+
+  const updatedRegistry = {
+    [path.parse(file).name]: {
+      Path:
+        "src/" + path.relative("src", path.dirname(file)).replace(/\\/g, "/"),
+    },
+  };
+
+  registryData = { ...registryData, ...updatedRegistry };
+
+  //write registry.json
+  fs.writeFileSync(
+    `src/registry.json`,
+    JSON.stringify(registrySchema.parse(registryData), null, 2)
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "@nuvra-ui/nuvra-cli",
-  "version": "0.1.1",
+  "version": "0.1.7",
   "description": "The command line interface for Nuvra-UI",
   "license": "MIT",
   "author": "Nuvra-UI",
@@ -16,12 +16,13 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "@nuvra-ui/nuvra-ui": "^0.1.2",
+    "axios": "^1.13.2",
     "commander": "^14.0.2",
     "figlet": "^1.9.3",
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^24.9.2",
     "rollup-plugin-dts": "^6.2.3",
