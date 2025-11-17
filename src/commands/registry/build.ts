@@ -42,7 +42,7 @@ async function buildRegistryComponent(file: string) {
 
   const updatedRegistry = {
     [path.parse(file).name]: {
-      Path:
+      path:
         "src/" + path.relative("src", path.dirname(file)).replace(/\\/g, "/"),
     },
   };
