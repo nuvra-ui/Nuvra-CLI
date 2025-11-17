@@ -27,7 +27,7 @@ async function addComponent(component: string) {
     async function getMetadata() {
       try {
         const response = await axios.get(
-          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${registry[component].Path}/metadata.json`
+          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${registry[component].path}/metadata.json`
         );
         return response.data;
       } catch (error) {
