@@ -20,5 +20,13 @@ async function listComponents() {
     }
   }
   const registry = await getComponents();
-  console.log(registry);
+  console.log(
+    `The following ${
+      Object.keys(registry).length
+    } Components were found in the registry:`
+  );
+  console.log(" ");
+  Object.keys(registry).forEach((key) => {
+    console.log(key);
+  });
 }
