@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Command } from "commander";
+import chalk from "chalk";
 
 export const list = new Command()
   .name("list")
@@ -21,10 +22,13 @@ async function listComponents() {
   }
   const registry = await getComponents();
   console.log(
-    `The following ${
-      Object.keys(registry).length
-    } Components were found in the registry:`
+    chalk.yellow(
+      `The following ${
+        Object.keys(registry).length
+      } Components were found in the registry:`
+    )
   );
+
   console.log(" ");
   Object.keys(registry).forEach((key) => {
     console.log(key);
