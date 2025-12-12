@@ -17,15 +17,15 @@ async function listComponents() {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.log(chalk.red(error));
     }
   }
   const registry = await getComponents();
   console.log(
     chalk.yellow(
-      `The following ${
+      `The following ${chalk.underline(
         Object.keys(registry).length
-      } Components were found in the registry:`
+      )} Components were found in the registry:`
     )
   );
 
