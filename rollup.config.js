@@ -5,7 +5,7 @@ const config = [
     input: "src/index.ts",
     output: {
       file: "dist/index.js",
-      format: "cjs",
+      format: "esm",
       banner: "#!/usr/bin/env node",
       sourcemap: true,
     },
