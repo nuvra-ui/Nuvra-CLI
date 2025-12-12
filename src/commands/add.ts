@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import axios from "axios";
+import chalk from "chalk";
 
 export const add = new Command()
   .name("add")
@@ -18,7 +19,7 @@ async function addComponent(component: string) {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.log(chalk.red(error));
     }
   }
   const registry = await getRegistry();
@@ -31,7 +32,7 @@ async function addComponent(component: string) {
         );
         return response.data;
       } catch (error) {
-        console.log(error);
+        console.log(chalk.red(error));
       }
     }
     const metaData = await getMetadata();
@@ -43,7 +44,7 @@ async function addComponent(component: string) {
         );
         return response.data;
       } catch (error) {
-        console.log(error);
+        console.log(chalk.red(error));
       }
     }
     const componentFile = await getComponentFile();
@@ -53,6 +54,6 @@ async function addComponent(component: string) {
     }
     writeFileSync(`src/ui/` + metaData.name + `.tsx`, componentFile);
   } else {
-    console.log(`Component "${component}" not found in registry.`);
+    console.log(chalk.red(`Component "${component}" not found in registry.`));
   }
 }
