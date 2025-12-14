@@ -1,7 +1,8 @@
 import axios from "axios";
 import chalk from "chalk";
+import inquirer from "inquirer";
 import { Command } from "commander";
-import { existsSync, mkdir, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
 
 export const init = new Command()
@@ -38,6 +39,23 @@ async function initLibary() {
     }
   }
   const cssFile = await getCSSFile();
+
+  async function run() {
+    const { confirm } = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "confirm",
+        message: `Do you want to continue creating ${filePath}?`,
+        default: "yes",
+      },
+    ]);
+
+    if (!confirm) {
+      console.log(chalk.red("Canceled"));
+      process.exit(1);
+    }
+  }
+  run();
 
   if (!existsSync(dirname(filePath))) {
     //src/styles
