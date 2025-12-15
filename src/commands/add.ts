@@ -3,6 +3,9 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 import axios from "axios";
 import chalk from "chalk";
 import apiClient from "../services/api-client";
+import { getRegistry } from "../utils/getRegistry";
+import { getMetadata } from "../utils/getMetadata";
+import { getComponentFile } from "../utils/getComponentFile";
 
 export const add = new Command()
   .name("add")
@@ -13,38 +16,12 @@ export const add = new Command()
   });
 
 async function addComponent(component: string) {
-  async function getRegistry() {
-    try {
-      const response = await apiClient.get("/src/registry.json");
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
   const registry = await getRegistry();
 
   if (registry[component]) {
-    async function getMetadata() {
-      try {
-        const response = await apiClient.get(
-          `/${registry[component].path}/metadata.json`
-        );
-        return response.data;
-      } catch (error) {
-        console.log(chalk.red(error));
-      }
-    }
-    const metaData = await getMetadata();
+    const metaData = await getMetadata(registry[component]);
 
-    async function getComponentFile() {
-      try {
-        const response = await apiClient.get(`/${metaData.files[0].path}`);
-        return response.data;
-      } catch (error) {
-        console.log(chalk.red(error));
-      }
-    }
-    const componentFile = await getComponentFile();
+    const componentFile = await getComponentFile(metaData.files[0].path);
 
     if (!existsSync(`src/ui/`)) {
       mkdirSync(`src/ui/`);
