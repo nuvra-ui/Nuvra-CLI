@@ -5,6 +5,7 @@ import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
 import apiClient from "../services/api-client";
+import { confirmPromt } from "../prompts/confirm";
 
 export const init = new Command()
   .name("init")
@@ -37,22 +38,7 @@ async function initLibary() {
   }
   const cssFile = await getCSSFile();
 
-  async function run() {
-    const { confirm } = await inquirer.prompt([
-      {
-        type: "confirm",
-        name: "confirm",
-        message: `Do you want to continue creating ${filePath}?`,
-        default: "yes",
-      },
-    ]);
-
-    if (!confirm) {
-      console.log(chalk.red("Canceled"));
-      process.exit(1);
-    }
-  }
-  run();
+  confirmPromt(`Do you want to continue creating ${filePath}?`); //yes/no question
 
   if (!existsSync(dirname(filePath))) {
     //src/styles
