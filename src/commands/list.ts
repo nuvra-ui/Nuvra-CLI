@@ -12,7 +12,7 @@ export const list = new Command()
 async function listComponents() {
   async function getComponents() {
     try {
-      const response = await apiClient.get("src/registry.json");
+      const response = await apiClient.get("/src/registry.json");
       return response.data;
     } catch (error) {
       console.log(chalk.red(error));

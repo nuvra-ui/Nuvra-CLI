@@ -4,6 +4,7 @@ import inquirer from "inquirer";
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
+import apiClient from "../services/api-client";
 
 export const init = new Command()
   .name("init")
@@ -17,9 +18,7 @@ export const init = new Command()
 async function initLibary() {
   async function getConfig() {
     try {
-      const response = await axios.get(
-        "https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/nuvra-ui.config.json"
-      );
+      const response = await apiClient.get("/nuvra-ui.config.json");
       return response.data;
     } catch (error) {
       console.log(chalk.red(error));
@@ -30,9 +29,7 @@ async function initLibary() {
 
   async function getCSSFile() {
     try {
-      const response = await axios.get(
-        "https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/" + filePath
-      );
+      const response = await apiClient.get(filePath);
       return response.data;
     } catch (error) {
       console.log(chalk.red(error));
