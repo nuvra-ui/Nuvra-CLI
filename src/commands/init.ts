@@ -1,6 +1,4 @@
-import axios from "axios";
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";

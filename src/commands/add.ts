@@ -1,8 +1,6 @@
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import axios from "axios";
 import chalk from "chalk";
-import apiClient from "../services/api-client";
 import { getRegistry } from "../utils/getRegistry";
 import { getMetadata } from "../utils/getMetadata";
 import { getComponentFile } from "../utils/getComponentFile";
