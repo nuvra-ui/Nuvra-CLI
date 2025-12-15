@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import apiClient from "../services/api-client";
+import { getComponents } from "../utils/getComponents";
 
 export const list = new Command()
   .name("list")
@@ -10,15 +11,8 @@ export const list = new Command()
   });
 
 async function listComponents() {
-  async function getComponents() {
-    try {
-      const response = await apiClient.get("/src/registry.json");
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
   const registry = await getComponents();
+
   console.log(
     chalk.yellow(
       `The following ${chalk.underline(
