@@ -19,7 +19,8 @@ async function addComponent(component: string) {
   const registry = await getRegistry();
 
   if (registry[component]) {
-    const metaData = await getMetadata(registry[component]);
+    const metaData = await getMetadata(registry[component].path);
+    console.log(metaData);
 
     const componentFile = await getComponentFile(metaData.files[0].path);
 
