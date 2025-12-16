@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import { getRegistry } from "../utils/getRegistry";
+import { getData } from "../utils/getData";
 
 export const list = new Command()
   .name("list")
@@ -10,7 +11,7 @@ export const list = new Command()
   });
 
 async function listComponents() {
-  const registry = await getRegistry();
+  const registry = await getData("/src/registry.json");
 
   console.log(
     chalk.yellow(
