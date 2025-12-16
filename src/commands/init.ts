@@ -1,8 +1,6 @@
-import chalk from "chalk";
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
-import apiClient from "../services/api-client";
 import { confirmPromt } from "../prompts/confirm";
 import { getData } from "../utils/getData";
 
