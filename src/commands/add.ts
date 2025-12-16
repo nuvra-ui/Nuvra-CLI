@@ -1,9 +1,6 @@
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import chalk from "chalk";
-import { getRegistry } from "../utils/getRegistry";
-import { getMetadata } from "../utils/getMetadata";
-import { getComponentFile } from "../utils/getComponentFile";
 import { getData } from "../utils/getData";
 
 export const add = new Command()

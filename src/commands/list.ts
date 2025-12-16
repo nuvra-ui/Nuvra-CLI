@@ -1,6 +1,5 @@
 import { Command } from "commander";
 import chalk from "chalk";
-import { getRegistry } from "../utils/getRegistry";
 import { getData } from "../utils/getData";
 
 export const list = new Command()
