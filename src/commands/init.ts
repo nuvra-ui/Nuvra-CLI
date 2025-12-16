@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
 import apiClient from "../services/api-client";
 import { confirmPromt } from "../prompts/confirm";
+import { getData } from "../utils/getData";
 
 export const init = new Command()
   .name("init")
@@ -15,26 +16,9 @@ export const init = new Command()
   });
 
 async function initLibary() {
-  async function getConfig() {
-    try {
-      const response = await apiClient.get("/nuvra-ui.config.json");
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
-  const config = await getConfig();
+  const config = await getData("/nuvra-ui.config.json");
   const filePath = config["styles"]["global"]; //src/styles/global.css
-
-  async function getCSSFile() {
-    try {
-      const response = await apiClient.get(filePath);
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
-  const cssFile = await getCSSFile();
+  const cssFile = await getData(filePath);
 
   confirmPromt(`Do you want to continue creating ${filePath}?`); //yes/no question
 
