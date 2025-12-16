@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import axios from "axios";
 import chalk from "chalk";
+import { getData } from "../utils/getData";
 
 export const add = new Command()
   .name("add")
@@ -12,42 +12,13 @@ export const add = new Command()
   });
 
 async function addComponent(component: string) {
-  async function getRegistry() {
-    try {
-      const response = await axios.get(
-        "https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/src/registry.json"
-      );
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
-  const registry = await getRegistry();
+  const registry = await getData("/src/registry.json");
 
   if (registry[component]) {
-    async function getMetadata() {
-      try {
-        const response = await axios.get(
-          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${registry[component].path}/metadata.json`
-        );
-        return response.data;
-      } catch (error) {
-        console.log(chalk.red(error));
-      }
-    }
-    const metaData = await getMetadata();
+    const metaData = await getData(registry[component].path + "/metadata.json");
+    console.log(metaData);
 
-    async function getComponentFile() {
-      try {
-        const response = await axios.get(
-          `https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/${metaData.files[0].path}`
-        );
-        return response.data;
-      } catch (error) {
-        console.log(chalk.red(error));
-      }
-    }
-    const componentFile = await getComponentFile();
+    const componentFile = await getData("/" + metaData.files[0].path);
 
     if (!existsSync(`src/ui/`)) {
       mkdirSync(`src/ui/`);

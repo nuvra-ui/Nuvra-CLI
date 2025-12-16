@@ -1,6 +1,6 @@
-import axios from "axios";
 import { Command } from "commander";
 import chalk from "chalk";
+import { getData } from "../utils/getData";
 
 export const list = new Command()
   .name("list")
@@ -10,17 +10,8 @@ export const list = new Command()
   });
 
 async function listComponents() {
-  async function getComponents() {
-    try {
-      const response = await axios.get(
-        "https://raw.githubusercontent.com/nuvra-ui/Nuvra-UI/main/src/registry.json"
-      );
-      return response.data;
-    } catch (error) {
-      console.log(chalk.red(error));
-    }
-  }
-  const registry = await getComponents();
+  const registry = await getData("/src/registry.json");
+
   console.log(
     chalk.yellow(
       `The following ${chalk.underline(
