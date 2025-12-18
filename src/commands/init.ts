@@ -7,7 +7,7 @@ import { getData } from "../utils/getData";
 export const init = new Command()
   .name("init")
   .description(
-    "Sets up the UI library with default configurations and prepares it for use."
+    "Sets up the UI library with default configurations and prepares it for use.",
   )
   .action(async () => {
     initLibary();

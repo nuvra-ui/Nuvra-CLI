@@ -15,9 +15,9 @@ async function listComponents() {
   console.log(
     chalk.yellow(
       `The following ${chalk.underline(
-        Object.keys(registry).length
-      )} Components were found in the registry:`
-    )
+        Object.keys(registry).length,
+      )} Components were found in the registry:`,
+    ),
   );
 
   console.log(" ");
