@@ -1,5 +1,5 @@
 message="$(cat $1)"
-requiredPattern="^(add|cut|fix|bump|make|start|stop|ref|optimise|document|merge)/.*$"
+requiredPattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/.*$"
 if ! [[ $message =~ $requiredPattern ]];
 then
   echo "-"
@@ -8,6 +8,7 @@ then
   echo "🚨 Wrong commit message! 😕"
   echo "The commit message must have this format:"
   echo "<verb in imperative mood>/<what was done>"
+    echo "Allowed verbs in imperative mood: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
   echo "Example: impl/login button"
   echo "-"
   echo "Your commit message was:"
