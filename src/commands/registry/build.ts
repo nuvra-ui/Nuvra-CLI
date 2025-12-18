@@ -30,7 +30,7 @@ async function buildRegistryComponent(file: string) {
   // Write component metadata.json
   fs.writeFileSync(
     `${path.dirname(file)}/metadata.json`,
-    JSON.stringify(componentSchema.parse(componentData), null, 2)
+    JSON.stringify(componentSchema.parse(componentData), null, 2),
   );
 
   // update/create registry.json
@@ -52,6 +52,6 @@ async function buildRegistryComponent(file: string) {
   //write registry.json
   fs.writeFileSync(
     `src/registry.json`,
-    JSON.stringify(registrySchema.parse(registryData), null, 2)
+    JSON.stringify(registrySchema.parse(registryData), null, 2),
   );
 }

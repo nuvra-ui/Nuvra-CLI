@@ -10,7 +10,7 @@ const componentSchema = z.object({
   files: z.array(
     z.object({
       path: z.string(),
-    })
+    }),
   ),
 });
 
