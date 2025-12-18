@@ -18,7 +18,7 @@ async function initLibary() {
   const filePath = config["styles"]["global"]; //src/styles/global.css
   const cssFile = await getData(filePath);
 
-  confirmPromt(`Do you want to continue creating ${filePath}?`); //yes/no question
+  await confirmPromt(`Do you want to continue creating ${filePath}?`); //yes/no question
 
   if (!existsSync(dirname(filePath))) {
     //src/styles
