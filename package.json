@@ -14,7 +14,8 @@
     "nuvra-ui": "dist/index.js"
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepare": "husky"
   },
   "dependencies": {
     "axios": "^1.13.2",
@@ -28,6 +29,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^24.9.2",
+    "husky": "^9.1.7",
     "rollup-plugin-dts": "^6.2.3",
     "tsc-alias": "^1.8.16",
     "tslib": "^2.8.1",

@@ -1,0 +1,2 @@
+message="$(cat $1)"
+echo message
