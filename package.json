@@ -5,9 +5,13 @@
   "type": "module",
   "main": "dist/index.cjs",
   "scripts": {
-    "build": "tsup src/index.ts"
+    "build": "tsup src/index.ts",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "husky": "^9.1.7",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
