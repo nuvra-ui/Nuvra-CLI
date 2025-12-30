@@ -23,4 +23,7 @@ async function addComponent() {
     ],
     required: true,
   });
+
+  const registry = getFi
+
 }
