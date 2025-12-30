@@ -4,7 +4,7 @@ import { multiselect, select } from "@clack/prompts";
 export const add = new Command()
   .name("add")
   .description("Add an component to your project")
-  .action(addComponent)
+  .action(addComponent);
 
 async function addComponent() {
   const framework = await select({
@@ -12,7 +12,7 @@ async function addComponent() {
     options: [
       { value: "react", label: "React (tsx)" },
       { value: "vue", label: "Vue.js" },
-    ]
+    ],
   });
   const component = await multiselect({
     message: "Select the components you want to add to your project.",
