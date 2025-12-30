@@ -25,5 +25,8 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.1"
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
   }
 }
