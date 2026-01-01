@@ -12,6 +12,6 @@ const registryItemSchema = z.object({
 });
 
 export const registrySchema = z.object({
-  vuejs: z.array(registryItemSchema).default([]),
-  react: z.array(registryItemSchema).default([]),
+  vuejs: z.array(registryItemSchema),
+  react: z.array(registryItemSchema),
 });
