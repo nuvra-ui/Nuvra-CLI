@@ -15,3 +15,5 @@ export const registrySchema = z.object({
   vuejs: z.array(registryItemSchema),
   react: z.array(registryItemSchema),
 });
+
+export type RegistryItem = z.infer<typeof registryItemSchema>;
