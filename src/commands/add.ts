@@ -37,8 +37,10 @@ async function addComponent() {
     },
   );
 
-  console.log(group.framework, group.component);
-
   const registry = await getFile("/registry.json");
-  console.log(registry);
+
+  group.component.forEach(item => {
+    console.log(registry[group.framework].find(c => c.name = item))
+  })
+
 }
