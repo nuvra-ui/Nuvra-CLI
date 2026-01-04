@@ -1,6 +1,12 @@
 import { Command } from "commander";
 import * as p from "@clack/prompts";
+import { log } from "@clack/prompts";
 import { getFile } from "../utils/getFile.js";
+import fs from "fs";
+import {
+  registrySchema,
+  type RegistryItem,
+} from "../schemas/registrySchema.js";
 
 export const add = new Command()
   .name("add")
@@ -38,8 +44,37 @@ async function addComponent() {
   );
 
   const registry = await getFile("/registry.json");
+  try {
+    registrySchema.parse(registry);
+    log.success("Successfully parsed registry.");
+  } catch {
+    log.error("Error parsing registry.");
+  }
 
-  group.component.forEach((item) => {
-    console.log(registry[group.framework].find((c) => (c.name = item)));
-  });
+  if (!fs.existsSync(`${process.cwd()}/src/commands`)) {
+    log.error("Folder not found!");
+    process.exit(0);
+  } else {
+    log.success(`Found component folder.`);
+  }
+
+  for (const item of group.component) {
+    const componentData = registry[group.framework].find(
+      (c: RegistryItem) => c.name === item,
+    );
+
+    if (!componentData) {
+      log.error(`Component ${item} not found in registry.`);
+      process.exit(0);
+    }
+
+    try {
+      const fileContent = await getFile(componentData.files[0]["path"]);
+
+      fs.writeFileSync(`${process.cwd()}/src/commands/${componentData.name}.tsx`, fileContent)
+    } catch {
+      log.error(`Error adding ${componentData.name} to your project.`);
+    }
+    log.success(`Successfully added ${componentData.name} to your project.`);
+  }
 }
