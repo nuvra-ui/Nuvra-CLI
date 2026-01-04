@@ -14,6 +14,7 @@ export const add = new Command()
   .action(addComponent);
 
 async function addComponent() {
+  // 'todo' - more utils/functions for better readability (refactor)
   const group = await p.group(
     {
       framework: () =>
@@ -71,7 +72,10 @@ async function addComponent() {
     try {
       const fileContent = await getFile(componentData.files[0]["path"]);
 
-      fs.writeFileSync(`${process.cwd()}/src/commands/${componentData.name}.tsx`, fileContent)
+      fs.writeFileSync(
+        `${process.cwd()}/src/commands/${componentData.name}.tsx`, // 'todo' - dynamic file ending (react/vue)
+        fileContent,
+      );
     } catch {
       log.error(`Error adding ${componentData.name} to your project.`);
     }
