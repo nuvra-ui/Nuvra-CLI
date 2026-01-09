@@ -53,7 +53,7 @@ async function addComponent() {
     log.error("Error parsing registry.");
   }
 
-  if (!fs.existsSync(`${process.cwd()}/src/commands`)) {
+  if (!fs.existsSync(`${process.cwd()}/src/ui`)) {
     log.error("Folder not found!");
     process.exit(0);
   } else {
@@ -72,10 +72,10 @@ async function addComponent() {
 
     try {
       const fileContent = await getFile(componentData.files[0]["path"]);
-      const fileExtension = getFileExtension(group.framework)
+      const fileExtension = getFileExtension(group.framework);
 
       fs.writeFileSync(
-        `${process.cwd()}/src/commands/${componentData.name + fileExtension}`, // 'todo' - dynamic file ending (react/vue)
+        `${process.cwd()}/src/commands/${componentData.name + fileExtension}`,
         fileContent,
       );
     } catch {
