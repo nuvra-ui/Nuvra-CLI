@@ -7,6 +7,7 @@ import {
   registrySchema,
   type RegistryItem,
 } from "../schemas/registrySchema.js";
+import { getFileExtension } from "../utils/getFileExtension.js";
 
 export const add = new Command()
   .name("add")
@@ -71,9 +72,10 @@ async function addComponent() {
 
     try {
       const fileContent = await getFile(componentData.files[0]["path"]);
+      const fileExtension = getFileExtension(group.framework)
 
       fs.writeFileSync(
-        `${process.cwd()}/src/commands/${componentData.name}.tsx`, // 'todo' - dynamic file ending (react/vue)
+        `${process.cwd()}/src/commands/${componentData.name + fileExtension}`, // 'todo' - dynamic file ending (react/vue)
         fileContent,
       );
     } catch {

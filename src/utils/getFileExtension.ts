@@ -1,10 +1,10 @@
 export function getFileExtension(framework: string): string {
-  switch(framework) {
+  switch (framework) {
     case "react":
-      return ".tsx"
+      return ".tsx";
     case "vuejs":
-      return ".vue"
+      return ".vue";
     default:
-      return ".js"
+      return ".js";
   }
 }
