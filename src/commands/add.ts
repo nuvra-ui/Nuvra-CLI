@@ -16,7 +16,7 @@ export const add = new Command()
 
 async function addComponent() {
   // 'todo' - more utils/functions for better readability (refactor)
-  const options = await getAddGroup()
+  const options = await getAddGroup();
 
   const registry = await getFile("/registry.json");
   try {
