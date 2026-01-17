@@ -1,4 +1,4 @@
-import { Command, program } from "commander";
+import { Command } from "commander";
 import { log } from "@clack/prompts";
 import { getFile } from "../utils/getFile.js";
 import fs from "fs";
@@ -14,10 +14,10 @@ export const add = new Command()
   .name("add")
   .description("Add an component to your project")
   .option("-p, --path [path]", "Set the working directory for the project")
-  .action( async (options) => await addComponent(options));
+  .action(async (options) => await addComponent(options));
 
 async function addComponent(options: any) {
-  console.log(options)
+  console.log(options);
   // 'todo' - more utils/functions for better readability (refactor)
   const optionPromt = await getAddGroup();
 
