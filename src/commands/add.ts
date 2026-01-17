@@ -17,7 +17,8 @@ export const add = new Command()
   .action(async (options) => await addComponent(options));
 
 async function addComponent(options: any) {
-  console.log(options);
+  const baseDir = options.path || process.cwd(); //check if working directory is given in the CLI options
+
   // 'todo' - more utils/functions for better readability (refactor)
   const optionPromt = await getAddGroup();
 
@@ -29,14 +30,14 @@ async function addComponent(options: any) {
     log.error("Error parsing registry.");
   }
 
-  if (!fs.existsSync(path.join(process.cwd(), "src", "ui"))) {
+  if (!fs.existsSync(path.join(baseDir, "src", "ui"))) {
     log.error("Folder not found!");
     process.exit(0);
   } else {
     log.success(`Found component folder.`);
   }
 
-  for (const item of options.component) {
+  for (const item of optionPromt.component) {
     const componentData = registry[optionPromt.framework].find(
       (c: RegistryItem) => c.name === item,
     );
@@ -51,12 +52,7 @@ async function addComponent(options: any) {
       const fileExtension = getFileExtension(optionPromt.framework);
 
       fs.writeFileSync(
-        path.join(
-          process.cwd(),
-          "src",
-          "ui",
-          componentData.name + fileExtension,
-        ),
+        path.join(baseDir, "src", "ui", componentData.name + fileExtension),
         fileContent,
       );
     } catch {
