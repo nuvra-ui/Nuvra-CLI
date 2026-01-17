@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { log } from "@clack/prompts";
 import { getFile } from "../utils/getFile.js";
 import fs from "fs";
+import path from "path"
 import {
   registrySchema,
   type RegistryItem,
@@ -26,7 +27,7 @@ async function addComponent() {
     log.error("Error parsing registry.");
   }
 
-  if (!fs.existsSync(`${process.cwd()}/src/commands`)) {
+  if (!fs.existsSync(path.join(process.cwd(), "src", "ui"))) {
     log.error("Folder not found!");
     process.exit(0);
   } else {
@@ -48,7 +49,7 @@ async function addComponent() {
       const fileExtension = getFileExtension(options.framework);
 
       fs.writeFileSync(
-        `${process.cwd()}/src/commands/${componentData.name + fileExtension}`,
+        path.join(process.cwd(), "src", "ui", componentData.name + fileExtension),
         fileContent,
       );
     } catch {
