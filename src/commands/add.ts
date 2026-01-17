@@ -1,8 +1,8 @@
-import { Command } from "commander";
+import { Command, program } from "commander";
 import { log } from "@clack/prompts";
 import { getFile } from "../utils/getFile.js";
 import fs from "fs";
-import path from "path"
+import path from "path";
 import {
   registrySchema,
   type RegistryItem,
@@ -13,11 +13,13 @@ import { getAddGroup } from "../prompts/add.prompts.js";
 export const add = new Command()
   .name("add")
   .description("Add an component to your project")
-  .action(addComponent);
+  .option("-p, --path [path]", "Set the working directory for the project")
+  .action( async (options) => await addComponent(options));
 
-async function addComponent() {
+async function addComponent(options: any) {
+  console.log(options)
   // 'todo' - more utils/functions for better readability (refactor)
-  const options = await getAddGroup();
+  const optionPromt = await getAddGroup();
 
   const registry = await getFile("/registry.json");
   try {
@@ -35,7 +37,7 @@ async function addComponent() {
   }
 
   for (const item of options.component) {
-    const componentData = registry[options.framework].find(
+    const componentData = registry[optionPromt.framework].find(
       (c: RegistryItem) => c.name === item,
     );
 
@@ -46,10 +48,15 @@ async function addComponent() {
 
     try {
       const fileContent = await getFile(componentData.files[0]["path"]);
-      const fileExtension = getFileExtension(options.framework);
+      const fileExtension = getFileExtension(optionPromt.framework);
 
       fs.writeFileSync(
-        path.join(process.cwd(), "src", "ui", componentData.name + fileExtension),
+        path.join(
+          process.cwd(),
+          "src",
+          "ui",
+          componentData.name + fileExtension,
+        ),
         fileContent,
       );
     } catch {
