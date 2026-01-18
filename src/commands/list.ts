@@ -22,6 +22,10 @@ async function listComponents(framework: string) {
   }
 
   const components = registry[framework];
+  if (!components) {
+    log.error("Framework not found.")
+    process.exit(0)
+  }
   log.info(`Discovered ${components.length} ${framework} components:`);
-  components.forEach((c: RegistryItem) => console.log(`   - ${c.name}`));
+  components.forEach((c: RegistryItem) => console.log(`   • ${c.name}`));
 }
