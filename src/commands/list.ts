@@ -13,7 +13,7 @@ export const list = new Command()
   .action(async (framework) => listComponents(framework));
 
 async function listComponents(framework: string) {
-  const registry = await getFile("/registry.json")
+  const registry = await getFile("/registry.json");
   try {
     registrySchema.parse(registry);
     log.success("Successfully parsed registry.");
@@ -21,7 +21,7 @@ async function listComponents(framework: string) {
     log.error("Error parsing registry.");
   }
 
-  const components = registry[framework]
+  const components = registry[framework];
   log.info(`Discovered ${components.length} ${framework} components:`);
   components.forEach((c: RegistryItem) => console.log(`   - ${c.name}`));
 }

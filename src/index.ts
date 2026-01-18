@@ -9,7 +9,7 @@ async function main() {
     .description("The CLI for the all in one UI-Library")
     .version(packageJson.version);
 
-  program.addCommand(add).addCommand(list)
+  program.addCommand(add).addCommand(list);
 
   program.parse();
 }
