@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import packageJson from "../package.json" with { type: "json" };
 import { add } from "./commands/add.js";
+import { list } from "./commands/list.js";
 
 async function main() {
   const program = new Command()
@@ -8,7 +9,7 @@ async function main() {
     .description("The CLI for the all in one UI-Library")
     .version(packageJson.version);
 
-  program.addCommand(add);
+  program.addCommand(add).addCommand(list)
 
   program.parse();
 }
